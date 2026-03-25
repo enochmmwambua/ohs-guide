@@ -37,3 +37,5 @@ Clone the repository and run the project in your preferred development environme
 
 ```bash
 git clone https://github.com/IntelliSOFT-Consulting/ohs-guide.git
+```
+## Contributing
