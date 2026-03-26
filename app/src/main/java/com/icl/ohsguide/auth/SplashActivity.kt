@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.icl.ohsguide.MainActivity
+import com.icl.ohsguide.auth.MainActivity
 import com.icl.ohsguide.R
 
 class SplashActivity : AppCompatActivity() {

@@ -9,7 +9,6 @@
     import androidx.core.view.ViewCompat
     import androidx.core.view.WindowInsetsCompat
     import com.google.android.material.button.MaterialButton
-    import com.icl.ohsguide.MainActivity
     import com.icl.ohsguide.R
 
     class RegisterActivity : AppCompatActivity() {

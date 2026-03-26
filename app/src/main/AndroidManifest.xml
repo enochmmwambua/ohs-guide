@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.OHSGuide">
         <activity
+            android:name=".auth.ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".auth.UsernameActivity"
             android:exported="false" />
         <activity
@@ -27,8 +30,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:name=".auth.MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
