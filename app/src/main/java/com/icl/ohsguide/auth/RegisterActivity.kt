@@ -51,6 +51,9 @@
                 else {
                     Toast.makeText(this, "Account created", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, UsernameActivity::class.java)
+
+                    intent.putExtra("extraEmail", emailText)
+                    intent.putExtra("extraPassword", passwordText)
                     startActivity(intent)
                     finish()
                 }

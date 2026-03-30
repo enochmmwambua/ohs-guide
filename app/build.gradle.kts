@@ -1,5 +1,7 @@
-plugins {
+    plugins {
     alias(libs.plugins.android.application)
+    alias(libs.plugins.ksp)
+
 }
 
 android {
@@ -44,4 +46,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    val room_version = "2.8.4"
+    implementation("androidx.room:room-runtime:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    implementation("androidx.room:room-paging:$room_version")
 }
