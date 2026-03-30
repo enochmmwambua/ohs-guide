@@ -7,8 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.icl.ohsguide.R
+import com.icl.ohsguide.auth.data.User
+import com.icl.ohsguide.auth.data.UserDatabase
+import kotlinx.coroutines.launch
 
 class UsernameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +37,20 @@ class UsernameActivity : AppCompatActivity() {
             } else if (usernameText.length < 3) {
                 Toast.makeText(this, "Username must be at least 3 characters", Toast.LENGTH_SHORT).show()
             } else {
+                val passedEmail = intent.getStringExtra("extraEmail") ?: ""
+                val passedPassword = intent.getStringExtra("extraPassword") ?: ""
+
+                lifecycleScope.launch {
+                    val userDao = UserDatabase.getDatabase(this@UsernameActivity).userDao()
+                    val newUser = User(
+                        email = passedEmail,
+                        username = usernameText,
+                        passwordHash = passedPassword
+                    )
+                    val database = UserDatabase.getDatabase(applicationContext)
+                    database.userDao().insertUser(newUser)
+                }
+
                 Toast.makeText(this, "Welcome, $usernameText!", Toast.LENGTH_SHORT).show()
                 finish()
             }
