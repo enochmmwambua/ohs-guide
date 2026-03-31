@@ -21,6 +21,9 @@
             android:name=".auth.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".auth.MainPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".auth.SplashActivity"
             android:exported="true">
             <intent-filter>
