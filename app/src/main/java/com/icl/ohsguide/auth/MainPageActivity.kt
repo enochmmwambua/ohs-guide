@@ -16,10 +16,13 @@ class MainPageActivity : AppCompatActivity() {
         val usernameText = findViewById<TextView>(R.id.usernameDisplay)
         val emailText = findViewById<TextView>(R.id.emailDisplay)
 
-        val passedUsername = intent.getStringExtra("username") ?: "Guest"
-        val passedEmail = intent.getStringExtra("email") ?: "No email provided"
 
-        usernameText.text = passedUsername
-        emailText.text = passedEmail
+
+        //val passedUsername = intent.getStringExtra("username") ?: "Guest"
+        //val passedEmail = intent.getStringExtra("email") ?: "No email provided"
+
+        //usernameText.text = passedUsername
+        //emailText.text = passedEmail
+
     }
 }

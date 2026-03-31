@@ -1,5 +1,6 @@
 package com.icl.ohsguide.auth
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -14,8 +15,16 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.icl.ohsguide.R
 import com.icl.ohsguide.auth.data.UserDatabase
+import com.icl.ohsguide.auth.models.LoginRequests
+import com.icl.ohsguide.auth.models.LoginResponse
+import com.icl.ohsguide.auth.network.ApiClient
+import com.icl.ohsguide.auth.network.RetrofitCalls
 import kotlinx.coroutines.launch
 import kotlin.jvm.java
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +52,37 @@ class MainActivity : AppCompatActivity() {
             if (usernameText.isEmpty() || passwordText.isEmpty()) {
                 Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             } else {
-                lifecycleScope.launch {
+                val call = ApiClient.apiService.login(LoginRequests(email = usernameText, password = passwordText))
+                val dialog = ProgressDialog(this)
+                dialog.setTitle("Authenticating")
+                dialog.setMessage("Please wait...")
+                dialog.show()
+                call.enqueue(object : Callback<LoginResponse> {
+                    override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                        dialog.dismiss()
+                        if (response.isSuccessful) {
+                            val post = response.body()
+                            //save token to shared preference with response?.access.token
+                            // Handle the retrieved post data
+                        } else {
+                            val errorBody = response.errorBody()?.string()
+                            val errorCode = response.code()
+                            if (errorCode == 401) {
+                                Toast.makeText(this@MainActivity, "Invalid credentials", Toast.LENGTH_SHORT).show()
+                            }
+                            else if (errorCode == 404) {
+                                Toast.makeText(this@MainActivity, "User not found", Toast.LENGTH_SHORT).show()
+                            }
+                            // Handle error
+                        }
+                    }
+
+                    override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                        dialog.dismiss()
+                        // Handle failure
+                    }
+                })
+                /*lifecycleScope.launch {
                     val database = UserDatabase.getDatabase(applicationContext)
                     val user = database.userDao().getUserByUsername(usernameText)
 
@@ -64,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(this@MainActivity, "Invalid password", Toast.LENGTH_SHORT)
                             .show()
                     }
-                }
+                }*/
             }
         }
 
