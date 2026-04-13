@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.icl.ohsguide.R
+import com.icl.ohsguide.auth.data.Preferences
 import com.icl.ohsguide.auth.data.UserDatabase
 import com.icl.ohsguide.auth.models.LoginRequests
 import com.icl.ohsguide.auth.models.LoginResponse
@@ -62,8 +63,19 @@ class MainActivity : AppCompatActivity() {
                         dialog.dismiss()
                         if (response.isSuccessful) {
                             val post = response.body()
-                            //save token to shared preference with response?.access.token
-                            // Handle the retrieved post data
+                            val token = post?.access_token
+
+                            if (token != null) {
+                                val preferences = Preferences(this@MainActivity)
+                                preferences.saveAuthToken(token)
+                            }
+
+                            Toast.makeText(this@MainActivity, "Login successful", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@MainActivity, MainPageActivity::class.java)
+                            startActivity(intent)
+                            finish()
+
+                        // Handle the retrieved post data
                         } else {
                             val errorBody = response.errorBody()?.string()
                             val errorCode = response.code()

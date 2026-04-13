@@ -2,9 +2,11 @@ package com.icl.ohsguide.auth.network
 
 import com.icl.ohsguide.auth.models.LoginRequests
 import com.icl.ohsguide.auth.models.LoginResponse
+import com.icl.ohsguide.auth.models.ProviderStringResponse
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -16,6 +18,5 @@ interface ApiInterface {
     fun login(@Body loginRequest: LoginRequests): Call<LoginResponse>
 
     @GET("provider/me")
-    @Headers("Authorization: Bearer {token}")
-    fun me(@Path("token") token: String): Call<ProviderStringResponse>
+    fun me(@Header("Authorization") token: String): Call<ProviderStringResponse>
 }

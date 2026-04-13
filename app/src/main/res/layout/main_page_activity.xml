@@ -45,6 +45,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="email@test.com"
+                android:textSize="15sp"
                 android:textAppearance="?attr/textAppearanceBody1"
                 android:layout_marginTop="8dp" />
 
